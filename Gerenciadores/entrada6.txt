@@ -1,0 +1,13 @@
+IN(A, 3)
+IN(B, 2)
+IN(C, 3)
+OUT(A)
+OUT(C)
+IN(A, 4)
+IN(D, 3)
+OUT(D)
+OUT(A)
+IN(D, 6)
+
+
+
