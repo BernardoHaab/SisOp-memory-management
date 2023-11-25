@@ -3,6 +3,22 @@ from CircularFit import CircularFit
 from FirstFit import FirstFit
 from WorstFit import WorstFit
 
+def encontrar_espacos_livres(lista):
+    tamanho = 0
+    espacos = []
+
+    for item in lista:
+        if item is None:
+            tamanho += 1
+        else:
+            if tamanho > 0:
+                espacos.append(str(tamanho))
+                tamanho = 0
+
+    if tamanho > 0:
+        espacos.append(str(tamanho))
+
+    return ' | '.join(espacos)
 
 def main():
     print('')
@@ -31,9 +47,11 @@ Escolha a opção: """))
     nome_arquivo = input("Digite o nome do arquivo de texto: ")
 
     # Abrir o arquivo com o nome fornecido pelo usuário
+    espacos_contiguos = ""
     with open(nome_arquivo, 'r') as arquivo:
             if escolha == 1:
                 bf = BestFit(mem_tam)
+                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
@@ -41,8 +59,12 @@ Escolha a opção: """))
                         elemento_2 = elemento_1[1].strip().strip(')')
                         bf.IN(linha[3], int(elemento_2))
                     else:bf.OUT(linha[4])
+                    operacao = linha.replace('\n', ': ')
+                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                print(espacos_contiguos)
             elif escolha == 2:
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
+                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
                 cf = CircularFit(mem_tam)
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
@@ -50,8 +72,12 @@ Escolha a opção: """))
                         elemento_2 = elemento_1[1].strip().strip(')')
                         cf.IN(linha[3], int(elemento_2))
                     else:cf.OUT(linha[4])
+                    operacao = linha.replace('\n', ': ')
+                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                print(espacos_contiguos)
             if escolha == 3:
                 ff = FirstFit(mem_tam)
+                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
@@ -59,8 +85,12 @@ Escolha a opção: """))
                         elemento_2 = elemento_1[1].strip().strip(')')
                         ff.IN(linha[3], int(elemento_2))
                     else:ff.OUT(linha[4])
+                    operacao = linha.replace('\n', ': ')
+                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                print(espacos_contiguos)
             if escolha == 4:
                 ff = WorstFit(mem_tam)
+                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
@@ -68,5 +98,8 @@ Escolha a opção: """))
                         elemento_2 = elemento_1[1].strip().strip(')')
                         ff.IN(linha[3], int(elemento_2))
                     else:ff.OUT(linha[4])
+                    operacao = linha.replace('\n', ': ')
+                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                print(espacos_contiguos)
 if __name__ == "__main__":
     main()
