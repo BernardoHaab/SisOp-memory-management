@@ -3,6 +3,7 @@ from CircularFit import CircularFit
 from FirstFit import FirstFit
 from WorstFit import WorstFit
 
+
 def encontrar_espacos_livres(lista):
     tamanho = 0
     espacos = []
@@ -32,7 +33,7 @@ def main():
 #    1 - Best Fit              #
 #    2 - Circular Fit          #
 #    3 - First Fit             #
-#    4 - Wordt Fit             #
+#    4 - Worst Fit             #
 ################################
 
 Escolha a opção: """))
@@ -51,7 +52,7 @@ Escolha a opção: """))
     with open(nome_arquivo, 'r') as arquivo:
             if escolha == 1:
                 bf = BestFit(mem_tam)
-                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
+                espacos_contiguos += str("\n | " + encontrar_espacos_livres(bf.lista)) + " | \n"
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
@@ -59,13 +60,13 @@ Escolha a opção: """))
                         elemento_2 = elemento_1[1].strip().strip(')')
                         bf.IN(linha[3], int(elemento_2))
                     else:bf.OUT(linha[4])
-                    operacao = linha.replace('\n', ': ')
-                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                    operacao = linha.strip()
+                    espacos_contiguos += operacao + ":  | " + encontrar_espacos_livres(bf.lista) + " | \n"
                 print(espacos_contiguos)
             elif escolha == 2:
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
-                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
                 cf = CircularFit(mem_tam)
+                espacos_contiguos += str("\n | " + encontrar_espacos_livres(cf.lista)) + " | \n"
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
                         elemento_1 = linha.split(',')
@@ -73,11 +74,11 @@ Escolha a opção: """))
                         cf.IN(linha[3], int(elemento_2))
                     else:cf.OUT(linha[4])
                     operacao = linha.replace('\n', ': ')
-                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                    espacos_contiguos += operacao + " | " + encontrar_espacos_livres(cf.lista) + " | \n"
                 print(espacos_contiguos)
             if escolha == 3:
                 ff = FirstFit(mem_tam)
-                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
+                espacos_contiguos += str("\n | " + encontrar_espacos_livres(ff.lista)) + " | \n"
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
@@ -86,20 +87,20 @@ Escolha a opção: """))
                         ff.IN(linha[3], int(elemento_2))
                     else:ff.OUT(linha[4])
                     operacao = linha.replace('\n', ': ')
-                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                    espacos_contiguos += operacao + " | " + encontrar_espacos_livres(ff.lista) + " | \n"
                 print(espacos_contiguos)
             if escolha == 4:
-                ff = WorstFit(mem_tam)
-                espacos_contiguos += str(encontrar_espacos_livres(bf.lista)) + "\n"
+                wf = WorstFit(mem_tam)
+                espacos_contiguos += str("\n | " + encontrar_espacos_livres(wf.lista)) + " | \n"
                 print('\nTamanho da memória: ','(', mem_tam, ')\n')
                 for linha in arquivo:
                     if linha[0:2] == 'IN':
                         elemento_1 = linha.split(',')
                         elemento_2 = elemento_1[1].strip().strip(')')
-                        ff.IN(linha[3], int(elemento_2))
-                    else:ff.OUT(linha[4])
+                        wf.IN(linha[3], int(elemento_2))
+                    else:wf.OUT(linha[4])
                     operacao = linha.replace('\n', ': ')
-                    espacos_contiguos += operacao + " " + encontrar_espacos_livres(bf.lista) + "\n"
+                    espacos_contiguos += operacao + " | " + encontrar_espacos_livres(wf.lista) + " | \n"
                 print(espacos_contiguos)
 if __name__ == "__main__":
     main()

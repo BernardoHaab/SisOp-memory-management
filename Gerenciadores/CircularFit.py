@@ -1,8 +1,10 @@
 class CircularFit:
+    ponteiro = 0
+
     def __init__(self, tamanho_lista):
         self.lista = [None] * tamanho_lista
         self.posicao_atual = 0
-    
+
     def encontrar_espaco_disponivel(self, tamanho):
         segmento_atual = 0
         inicio_atual = -1
@@ -36,10 +38,11 @@ class CircularFit:
             print("IN({}, {}): {}".format(elemento, tamanho, self.lista))
 
     def OUT(self, elemento):
+
+        print("posicao_atual: ", self.posicao_atual)
         if elemento not in self.lista:
             print("OUT({}): Elemento {} não está na lista.".format(elemento, elemento))
         else:
-            self.posicao_atual = self.lista.index(elemento)
             for i in range(len(self.lista)):
                 if self.lista[i] == elemento:
                     self.lista[i] = None

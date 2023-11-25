@@ -9,27 +9,21 @@ class BestFit:
         melhor_espaco = float('inf')
         posicao_inicial = -1
         passo =-1
-        for i in range(len(self.lista)-1, 0, passo):
-            # print("i: {}".format(i))
+        espacos_livres = 0
+        for i in range(len(self.lista)-1, -1, passo):
             if self.lista[i] is None:
-                espaco_atual = 0
-                j = i
-                while j >= 0 and self.lista[j] is None:
-                    # print("j: {}".format(j))
-                    espaco_atual += 1
-                    j -= 1
-                # print("espaco_atual: {}".format(espaco_atual))
-                if espaco_atual >= tamanho and espaco_atual < melhor_espaco:
-                    melhor_espaco = espaco_atual
-                    posicao_inicial = i
-
-                # passo = espaco_atual
-
-        # print("posicao_inicial: {}".format(posicao_inicial))
+                espacos_livres = espacos_livres + 1
+            else:
+              if espacos_livres >= tamanho and espacos_livres <= melhor_espaco:
+                melhor_espaco = espacos_livres
+                posicao_inicial = i + 1
+              espacos_livres = 0
+        if espacos_livres >= tamanho and espacos_livres <= melhor_espaco:
+          posicao_inicial = 0
         if posicao_inicial == -1:
             print("IN({}, {}): Memory Overflow".format(elemento, tamanho))
         else:
-            for i in range(posicao_inicial, posicao_inicial - tamanho, -1):
+            for i in range(posicao_inicial, posicao_inicial + tamanho, 1):
                 self.lista[i] = elemento
             print("IN({}, {}): {}".format(elemento, tamanho, self.lista))
 
